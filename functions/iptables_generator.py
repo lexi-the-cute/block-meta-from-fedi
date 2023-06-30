@@ -26,5 +26,5 @@ def generate_iptable_rules(addresses: list[dict]) -> Generator[str, dict, None]:
     # I was going to pipe data directly from one generator to the other, but that made the code far more complex than is needed
     # If the addresses list get's large enough to warrant piping, it may be time to look into another method of handling blocking Meta
     for address in addresses:
-        if address is dict and "route" in address:
+        if type(address) is dict and "route" in address:
             yield handle_route.format(sudo=sudo, iptables=iptables, chain_name=chain_name, address=address["route"], policy=policy)

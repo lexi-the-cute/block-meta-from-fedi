@@ -40,7 +40,7 @@ def get_ips():
 
 if __name__ == "__main__":
     for ip in get_ips():
-        if ip is dict and "route" in ip:
+        if type(ip) is dict and "route" in ip:
             print(ip["route"])
         else:
             print(ip)
