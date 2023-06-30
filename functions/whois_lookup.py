@@ -1,4 +1,12 @@
-import whois
+import logging
+
+logger = logging.getLogger(__name__)
+
+try:
+    import whois
+except ImportError as e:
+    logger.error("You need to install the python-whois module. Install PIP (https://bootstrap.pypa.io/get-pip.py) and then 'pip3 install python-whois'")
+    raise e
 
 from typing import Generator
 
