@@ -1,3 +1,4 @@
+import re
 import logging
 
 logger = logging.getLogger(__name__)
@@ -13,6 +14,10 @@ from typing import Generator
 # https://developers.facebook.com/docs/sharing/webmasters/crawler/
 # whois -h whois.radb.net -- '-i origin AS32934' | grep ^route
 # The results are in the format of address:mask
+
+route_pattern: re.Pattern = re.compile(pattern='([^a-z0-9./:])+')
+def sanitize_routes(route: str):
+    return re.sub(pattern=route_pattern, repl="", string=route.lower())
 
 def lookup_records(query: str, host: str, flags: int = 0, many_results: bool = True, quiet: bool = True) -> str:
     client: whois.NICClient = whois.NICClient()
@@ -30,14 +35,14 @@ def lookup_ips(query: str, host: str, flags: int = 0, many_results: bool = True,
 
             yield {
                 "ip_version": 4,
-                "route": route
+                "route": sanitize_routes(route)
             }
         elif line.startswith("route6:"):
             route: str = ":".join(line.split(":")[1:]).strip()
 
             yield {
                 "ip_version": 6,
-                "route": route
+                "route": sanitize_routes(route)
             }
 
 def get_ips():
