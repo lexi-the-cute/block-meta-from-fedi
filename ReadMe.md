@@ -12,6 +12,29 @@ You can also check out [the pact against Meta](https://fedipact.online).
 
 This repo is a means to forcibly remove Meta from the Fediverse, by any means necessary. I've started this to collect a list of ip addresses which are owned by Meta and then to block Meta in ways that'll make life much more difficult for them. This includes silently dropping packets without notifying Meta, so their computers have to time out for each server which uses this method, as well as sending fake ActivityPub data to Meta and also throttling the connection, so as to slow their computers down and to make it harder for them to differentiate between which data is real, and which data is fake. It'll make their data much less valuable to anyone wanting to buy it.
 
+# Does This Work?
+
+As of the latest test at the time of writing this paragraph, I have confirmed that this script does block Meta's implementation of an ActivityPub server, threads.net.
+
+![Terminal Output Testing Threads.net IP Block](/.readme/threads-net_block_test.png)
+
+For those who can't read the image, I pasted a copy of the output below.
+
+```bash
+# dig threads.net +short
+31.13.65.52
+
+# dig www.threads.net +short
+threads.net.
+31.13.65.52
+
+# dig -x 31.13.65.52 +short    
+instagram-p3-shv-01-atl3.fbcdn.net.
+
+# python3 main.py -f plain | grep -i "31.13.65"
+31.13.65.0/24
+```
+
 # What Else Can We Do
 
 You can always sign the [the pact against Meta](https://fedipact.online) as well as update people with new Meta instances via the #FediBlock hashtag. You can also contribute means of obtaining lists of Meta's servers by ip, and domain. This list can include both scrapers, and ActivityPub powered instances.
