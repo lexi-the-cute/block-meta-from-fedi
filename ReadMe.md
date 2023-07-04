@@ -199,6 +199,8 @@ instagram-p3-shv-01-atl3.fbcdn.net.
 
 You can always sign the [the pact against Meta](https://fedipact.online) as well as update people with new Meta instances via the #FediBlock hashtag. You can also contribute means of obtaining lists of Meta's servers by ip, and domain. This list can include both scrapers, and ActivityPub powered instances.
 
+You can also check out the [Free Fediverse](https://freefediverse.org) project. It's a site of links to and about development projects, for a fediverse beyond stagnation, capitalist enclosure, and benevolent dictatorship.
+
 If you're a server owner, you can also update your .env.production file if you'd like to make it harder for others to read posts without authentication, however, this may make things less convenient for your denizens. I'd advise [reading about these options](https://hub.sunny.garden/2023/06/28/what-does-authorized_fetch-actually-do/) and consulting with your denizens before you enable them.
 
 ```ini
