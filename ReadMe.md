@@ -206,4 +206,4 @@ AUTHORIZED_FETCH=true
 DISALLOW_UNAUTHENTICATED_API_ACCESS=true
 ```
 
-I intentionally set everything in this repo as Public Domain (or [CC0 1.0 Universal](License.md) where Public Domain does not exist). This way anyone can work on improving this anti-Meta measure without restriction./
+I intentionally set everything in this repo as Public Domain (or [CC0 1.0 Universal](License.md) where Public Domain does not exist). This way anyone can work on improving this anti-Meta measure without restriction.
