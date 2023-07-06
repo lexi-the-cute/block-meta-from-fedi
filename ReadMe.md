@@ -1,12 +1,12 @@
 # What's This About
 
-Meta is planning on joining the Fediverse via a project called Project 92, or P92 for short. Many people including myself know how Meta is bad when it comes to respecting human rights. I'm not even just talking about Cambridge Analytica, but am talking about the [genocide which Meta helped perpetuate such as in Myanmar](https://www.amnesty.org/en/latest/news/2022/09/myanmar-facebooks-systems-promoted-violence-against-rohingya-meta-owes-reparations-new-report/). [Meta also has a history of mistreating queer people](https://www.aclu.org/news/lgbtq-rights/facebooks-discrimination-against-the-lgbt-community) and that's not even including the ["real" name policy](https://www.eff.org/deeplinks/2014/09/facebooks-real-name-policy-can-cause-real-world-harm-lgbtq-community). Of course, for me, I say that the name the person tells you is there name, is there real name. Not the name they were born with or their legal name, but the name that the person identifies with.
+Meta is planning on joining the Fediverse via a project called Project 92, or P92 for short. Many people including myself know how Meta is bad when it comes to respecting human rights. I'm not even just talking about Cambridge Analytica, but am talking about the [genocide which Meta helped perpetuate such as in Myanmar][rohingya-genocide]. [Meta also has a history of mistreating queer people][lgbt-discrimination] and that's not even including the ["real" name policy][real-name-policy]. Of course, for me, I say that the name the person tells you is there name, is there real name. Not the name they were born with or their legal name, but the name that the person identifies with.
 
 To help explain why the reaction is so strong against Meta, it helps to know that the Fediverse is very, very queer. The Fediverse is made of people, including LGBT people who had to flee from other platforms due to the abuse they've received from the platforms they used to be on. This includes the large influx of people which came from Twitter when Musk took over and started implementing transphobic policies and hiding trans people's tweets while allowing transphobic tweets and slurs to proliferate. Meta only wants to connect to the Fediverse because they see it as a means to make a profit, and they'll do that no matter how much it harms people or tears about the community.
 
-You can read more about Meta and the Fediverse at the article, [Should the Fediverse welcome its new surveillance-capitalism overlords?](https://privacy.thenexus.today/should-the-fediverse-welcome-surveillance-capitalism)
+You can read more about Meta and the Fediverse at the article, [Should the Fediverse welcome its new surveillance-capitalism overlords?][fediverse-surveillance-capitalism]
 
-You can also check out [the pact against Meta](https://fedipact.online) as well as [the explanation for the pact](https://fedipact.online/why).
+You can also check out [the pact against Meta][fedipact] as well as [the explanation for the pact][fedipact-explanation].
 
 # What's This Repo
 
@@ -166,11 +166,11 @@ Threads, an Instagram app
 For more information about collected and shared data, see the developer's privacy policy (http://instagram.com/legal/privacy)
 ```
 
-At the time of writing, the website just contains a countdown and the [privacy policy](http://instagram.com/legal/privacy) links to Instagram.
+Threads is currently live on the Android app. There's already hate organizations such as [PragerU][prageru] and [Libs of TikTok][lott] PragerU was given a verified checkmark which is basically an endorsement when they are a well known hate organization. Both of these organizations want trans people dead and as the fediverse is very, very queer, especially with a lot of people being some flavor of trans. Also, if you look through both of their accounts, you can find posts like [this one where PragerU just openly harasses people and promotes it][prageru-harassment] or [this one where Libs of TikTok pretends that trans women aren't women][lott-transphobia] knowing full well that it was explained to her that trans women are in fact women and most of society understands that fact.
 
-* [Apple App Store Listing](https://apps.apple.com/us/app/threads-an-instagram-app/id6446901002)
-* [Google Play Store Listing](https://play.google.com/store/apps/details?id=com.instagram.barcelona&gl=it)
-* [Website](https://www.threads.net/)
+* [Apple App Store Listing][apple-store-listing]
+* [Google Play Store Listing][play-store-listing]
+* [Website][threads-website]
 
 # Does This Work?
 
@@ -197,11 +197,21 @@ instagram-p3-shv-01-atl3.fbcdn.net.
 
 # What Else Can We Do
 
-You can always sign the [the pact against Meta](https://fedipact.online) as well as update people with new Meta instances via the #FediBlock hashtag. You can also contribute means of obtaining lists of Meta's servers by ip, and domain. This list can include both scrapers, and ActivityPub powered instances.
+* If you are an admin on a server, you can issue a block against threads.net. You can use any of the reasons mentioned in this ReadMe, such as enabling harassment and transphobia.
 
-You can also check out the [Free Fediverse](https://freefediverse.org) project. It's a site of links to and about development projects, for a fediverse beyond stagnation, capitalist enclosure, and benevolent dictatorship.
+* If you are an individual user, you can block the domain from being able to interact with your account. This'll require the domain to federate first, so unlike the admin option which you can do now, this one will have to wait until Meta starts federating with the Fediverse.
 
-If you're a server owner, you can also update your .env.production file if you'd like to make it harder for others to read posts without authentication, however, this may make things less convenient for your denizens. I'd advise [reading about these options](https://hub.sunny.garden/2023/06/28/what-does-authorized_fetch-actually-do/) and consulting with your denizens before you enable them.
+  ## Demo of Blocking Domain as an Individual
+
+  ![Demo of Blocking Domain as an Individual](.readme/block-domain-individual-user.png)
+
+  In order to block a domain as an individual, you'll have to look up an account from that domain. For example, you can use [Zuckerberg's account][zuck]. The user id should be [@zuck@threads.net][zuck]. Once you load it up in your instance, you can click the hamburger icon (three dots on top of each other) and then go down to where it says "Block domain threads.net". You then just confirm that you are fine with it and you'll have blocked the domain as an individual.
+
+* You can always sign the [the pact against Meta][fedipact] as well as update people with new Meta instances via the #FediBlock hashtag. You can also contribute means of obtaining lists of Meta's servers by ip, and domain. This list can include both scrapers, and ActivityPub powered instances.
+
+* You can also check out the [Free Fediverse][free-fediverse] project. It's a site of links to and about development projects, for a fediverse beyond stagnation, capitalist enclosure, and benevolent dictatorship.
+
+* If you're a server owner, you can also update your .env.production file if you'd like to make it harder for others to read posts without authentication, however, this may make things less convenient for your denizens. I'd advise [reading about these options][authorized-fetch] and consulting with your denizens before you enable them.
 
 ```ini
 AUTHORIZED_FETCH=true
@@ -209,3 +219,21 @@ DISALLOW_UNAUTHENTICATED_API_ACCESS=true
 ```
 
 I intentionally set everything in this repo as Public Domain (or [CC0 1.0 Universal](License.md) where Public Domain does not exist). This way anyone can work on improving this anti-Meta measure without restriction.
+
+[rohingya-genocide]: https://www.amnesty.org/en/latest/news/2022/09/myanmar-facebooks-systems-promoted-violence-against-rohingya-meta-owes-reparations-new-report/
+[lgbt-discrimination]: https://www.aclu.org/news/lgbtq-rights/facebooks-discrimination-against-the-lgbt-community
+[real-name-policy]: https://www.eff.org/deeplinks/2014/09/facebooks-real-name-policy-can-cause-real-world-harm-lgbtq-community
+[fediverse-surveillance-capitalism]: https://privacy.thenexus.today/should-the-fediverse-welcome-surveillance-capitalism
+[fedipact]: https://fedipact.online
+[fedipact-explanation]: https://fedipact.online/why
+[instagram-privacy-policy]: http://instagram.com/legal/privacy
+[apple-store-listing]: https://apps.apple.com/us/app/threads-an-instagram-app/id6446901002
+[play-store-listing]: https://play.google.com/store/apps/details?id=com.instagram.barcelona
+[threads-website]: https://www.threads.net/
+[free-fediverse]: https://freefediverse.org
+[authorized-fetch]: https://hub.sunny.garden/2023/06/28/what-does-authorized_fetch-actually-do/
+[prageru]: https://www.threads.net/@prageru
+[lott]: https://www.threads.net/@libsoftiktokofficial
+[prageru-harassment]: https://www.threads.net/t/CuVohbUrs0c
+[lott-transphobia]: https://www.threads.net/t/CuVobuboVKK
+[zuck]: https://www.threads.net/@zuck
