@@ -8,6 +8,8 @@ You can read more about Meta and the Fediverse at the article, [Should the Fediv
 
 You can also check out [the pact against Meta][fedipact] as well as [the explanation for the pact][fedipact-explanation].
 
+There's also an [article which explains why the Fediverse is very much against Meta joining][meta-and-mastodon-article].
+
 # What's This Repo
 
 This repo is a means to forcibly remove Meta from the Fediverse, by any means necessary. I've started this to collect a list of ip addresses which are owned by Meta and then to block Meta in ways that'll make life much more difficult for them. This includes silently dropping packets without notifying Meta, so their computers have to time out for each server which uses this method, as well as sending fake ActivityPub data to Meta and also throttling the connection, so as to slow their computers down and to make it harder for them to differentiate between which data is real, and which data is fake. It'll make their data much less valuable to anyone wanting to buy it.
@@ -243,3 +245,4 @@ I intentionally set everything in this repo as Public Domain (or [CC0 1.0 Univer
 [prageru-harassment]: https://www.threads.net/t/CuVohbUrs0c
 [lott-transphobia]: https://www.threads.net/t/CuVobuboVKK
 [zuck]: https://www.threads.net/@zuck
+[meta-and-mastodon-article]: https://ianbetteridge.com/2023/06/21/meta-and-mastodon-whats-really-on-peoples-minds/
