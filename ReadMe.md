@@ -1,6 +1,6 @@
 # What's This About
 
-Meta is planning on joining the Fediverse via a project called Project 92, or P92 for short. Many people including myself know how Meta is bad when it comes to respecting human rights. I'm not even just talking about Cambridge Analytica, but am talking about the [genocide which Meta helped perpetuate such as in Myanmar][rohingya-genocide]. [Meta also has a history of mistreating queer people][lgbt-discrimination] and that's not even including the ["real" name policy][real-name-policy]. Of course, for me, I say that the name the person tells you is there name, is there real name. Not the name they were born with or their legal name, but the name that the person identifies with.
+Meta is planning on joining the Fediverse via a project called Project 92, or P92 for short. Many people including myself know how Meta is bad when it comes to respecting human rights. I'm not even just talking about [Cambridge Analytica][cambridge-analytica], but am talking about the [genocide which Meta helped perpetuate such as in Myanmar][rohingya-genocide]. [Meta also has a history of mistreating queer people][lgbt-discrimination] and that's not even including the ["real" name policy][real-name-policy]. Of course, for me, I say that the name the person tells you is there name, is there real name. Not the name they were born with or their legal name, but the name that the person identifies with.
 
 To help explain why the reaction is so strong against Meta, it helps to know that the Fediverse is very, very queer. The Fediverse is made of people, including LGBT people who had to flee from other platforms due to the abuse they've received from the platforms they used to be on. This includes the large influx of people which came from Twitter when Musk took over and started implementing transphobic policies and hiding trans people's tweets while allowing transphobic tweets and slurs to proliferate. Meta only wants to connect to the Fediverse because they see it as a means to make a profit, and they'll do that no matter how much it harms people or tears about the community.
 
@@ -166,7 +166,7 @@ Threads, an Instagram app
 For more information about collected and shared data, see the developer's privacy policy (http://instagram.com/legal/privacy)
 ```
 
-Threads is currently live on the Android app. There's already hate organizations such as [PragerU][prageru] and [Libs of TikTok][lott] PragerU was given a verified checkmark which is basically an endorsement when they are a well known hate organization. Both of these organizations want trans people dead and as the fediverse is very, very queer, especially with a lot of people being some flavor of trans. Also, if you look through both of their accounts, you can find posts like [this one where PragerU just openly harasses people and promotes it][prageru-harassment] or [this one where Libs of TikTok pretends that trans women aren't women][lott-transphobia] knowing full well that it was explained to her that trans women are in fact women and most of society understands that fact.
+Threads is currently live on the Android app. There's already hate organizations such as [PragerU][prageru] and [Libs of TikTok][lott]. PragerU was given a verified checkmark which is basically an endorsement when they are a well known hate organization. Both of these organizations want trans people dead and as the fediverse is very, very queer, especially with a lot of people being some flavor of trans, this just doesn't fly with the Fediverse. Also, if you look through both of their accounts, you can find posts like [this one where PragerU just openly harasses people and promotes it][prageru-harassment] and [this one where Libs of TikTok pretends that trans women aren't women][lott-transphobia] knowing full well that it was explained to her that trans women are in fact women and how most of society understands that fact.
 
 * [Apple App Store Listing][apple-store-listing]
 * [Google Play Store Listing][play-store-listing]
@@ -218,8 +218,14 @@ AUTHORIZED_FETCH=true
 DISALLOW_UNAUTHENTICATED_API_ACCESS=true
 ```
 
+* If you're a software developer, you can contribute pull requests to help improve our protection against Meta.
+
+* Also, anyone can share [this repo][self] with others on the Fediverse, so please share this and convince your admins to take action to protect their users.
+
 I intentionally set everything in this repo as Public Domain (or [CC0 1.0 Universal](License.md) where Public Domain does not exist). This way anyone can work on improving this anti-Meta measure without restriction.
 
+[self]: https://github.com/alexisart/block-meta-from-fedi
+[cambridge-analytica]: https://www.reuters.com/legal/facebook-parent-meta-pay-725-mln-settle-lawsuit-relating-cambridge-analytica-2022-12-23/
 [rohingya-genocide]: https://www.amnesty.org/en/latest/news/2022/09/myanmar-facebooks-systems-promoted-violence-against-rohingya-meta-owes-reparations-new-report/
 [lgbt-discrimination]: https://www.aclu.org/news/lgbtq-rights/facebooks-discrimination-against-the-lgbt-community
 [real-name-policy]: https://www.eff.org/deeplinks/2014/09/facebooks-real-name-policy-can-cause-real-world-harm-lgbtq-community
