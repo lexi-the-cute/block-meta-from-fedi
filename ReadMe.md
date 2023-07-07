@@ -16,6 +16,8 @@ If you're interested in [Google and XMPP, see this article][killing-decentralize
 
 This repo is a means to forcibly remove Meta from the Fediverse, by any means necessary. I've started this to collect a list of ip addresses which are owned by Meta and then to block Meta in ways that'll make life much more difficult for them. This includes silently dropping packets without notifying Meta, so their computers have to time out for each server which uses this method, as well as sending fake ActivityPub data to Meta and also throttling the connection, so as to slow their computers down and to make it harder for them to differentiate between which data is real, and which data is fake. It'll make their data much less valuable to anyone wanting to buy it.
 
+This repo is both hosted on [Github][github-repo] and [Codeberg][codeberg-repo].
+
 # Will They Actually Harm Me?
 
 I'll let you read this info provided by Meta themselves.
@@ -224,11 +226,12 @@ DISALLOW_UNAUTHENTICATED_API_ACCESS=true
 
 * If you're a software developer, you can contribute pull requests to help improve our protection against Meta.
 
-* Also, anyone can share [this repo][self] with others on the Fediverse, so please share this and convince your admins to take action to protect their users.
+* Also, anyone can share this repo with others on the Fediverse, so please share this and convince your admins to take action to protect their users. You can either share the [Github][github-repo] link or the [Codeberg][codeberg-repo] link.
 
 I intentionally set everything in this repo as Public Domain (or [CC0 1.0 Universal](License.md) where Public Domain does not exist). This way anyone can work on improving this anti-Meta measure without restriction.
 
-[self]: https://github.com/alexisart/block-meta-from-fedi
+[github-repo]: https://github.com/alexisart/block-meta-from-fedi
+[codeberg-repo]: https://codeberg.org/alexis/block-meta-from-fedi
 [cambridge-analytica]: https://www.reuters.com/legal/facebook-parent-meta-pay-725-mln-settle-lawsuit-relating-cambridge-analytica-2022-12-23/
 [rohingya-genocide]: https://www.amnesty.org/en/latest/news/2022/09/myanmar-facebooks-systems-promoted-violence-against-rohingya-meta-owes-reparations-new-report/
 [lgbt-discrimination]: https://www.aclu.org/news/lgbtq-rights/facebooks-discrimination-against-the-lgbt-community
