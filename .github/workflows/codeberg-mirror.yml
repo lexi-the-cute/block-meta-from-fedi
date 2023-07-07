@@ -1,6 +1,5 @@
 name: Sync With Codeberg Mirror
 run-name: ${{ github.actor }} is syncing repo with Codeberg mirror
-on: [push]
 on:
   push:
   workflow_dispatch:
