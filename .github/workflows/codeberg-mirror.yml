@@ -1,0 +1,31 @@
+name: Sync With Codeberg Mirror
+run-name: ${{ github.actor }} is syncing repo with Codeberg mirror
+on: [push]
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 */6 * * *"
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      # Setup Build Environment
+      - name: 🎉 The job was automatically triggered by a ${{ github.event_name }} event.
+        run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - name: 🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!
+        run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - name: 🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}.
+        run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - name: Check out repository code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: 💡 The ${{ github.repository }} repository has been cloned to the runner.
+        run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+
+      # Mirror To Codeberg
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url: "git@codeberg.org:alexis/block-meta-from-fedi.git"
+          ssh_private_key: ${{ secrets.CODEBERG_SSH }}
