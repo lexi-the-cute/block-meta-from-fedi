@@ -1,8 +1,8 @@
 # What's This About
 
-Meta is planning on joining the Fediverse via a project called Project 92, or P92 for short. Many people including myself know how Meta is bad when it comes to respecting human rights. I'm not even just talking about [Cambridge Analytica][cambridge-analytica], but am talking about the [genocide which Meta helped perpetuate such as in Myanmar][rohingya-genocide]. [Meta also has a history of mistreating queer people][lgbt-discrimination] and that's not even including the ["real" name policy][real-name-policy]. Of course, for me, I say that the name the person tells you is there name, is there real name. Not the name they were born with or their legal name, but the name that the person identifies with.
+Meta is planning on joining the Fediverse via a project called Project 92, or P92 for short. Many people including myself know how Meta is bad when it comes to respecting human rights. I'm not even just talking about [Cambridge Analytica][cambridge-analytica], but am talking about the [genocide which Meta helped perpetuate such as in Myanmar][rohingya-genocide]. [Meta also has a history of mistreating queer people][lgbt-discrimination] and that's not even including the ["real" name policy][real-name-policy]. Of course, for me, I say that the name the person tells you is there name, is there real name. Not the name they were born with or their legal name, but the name that the person identifies with. 
 
-To help explain why the reaction is so strong against Meta, it helps to know that the Fediverse is very, very queer. The Fediverse is made of people, including LGBT people who had to flee from other platforms due to the abuse they've received from the platforms they used to be on. This includes the large influx of people which came from Twitter when Musk took over and started implementing transphobic policies and hiding trans people's tweets while allowing transphobic tweets and slurs to proliferate. Meta only wants to connect to the Fediverse because they see it as a means to make a profit, and they'll do that no matter how much it harms people or tears about the community.
+To help explain why the reaction is so strong against Meta, it helps to know that the Fediverse is very, very queer. The Fediverse is made of people, including LGBT people who had to flee from other platforms due to the abuse they've received from the platforms they used to be on. This includes the large influx of people which came from Twitter when Musk took over and started implementing transphobic policies and hiding trans people's tweets while allowing transphobic tweets and slurs to proliferate. Meta only wants to connect to the Fediverse because they see it as a means to make a profit, and they'll do that no matter how much it harms people or tears about the community. Also, Meta has and will provide data to law enforcement without a second thought. They have done [this for abortion][facebook-abortion-police] and with the active criminalization of LGBT rights, such as making it illegal for [trans people to use the restroom in Florida][florida-bathroom-ban], giving data from LGBT people to Meta is effectively a death sentence in some cases.
 
 You can read more about Meta and the Fediverse at the article, [Should the Fediverse welcome its new surveillance-capitalism overlords?][fediverse-surveillance-capitalism]
 
@@ -230,6 +230,16 @@ DISALLOW_UNAUTHENTICATED_API_ACCESS=true
 
 I intentionally set everything in this repo as Public Domain (or [CC0 1.0 Universal](License.md) where Public Domain does not exist). This way anyone can work on improving this anti-Meta measure without restriction.
 
+# Other Resources
+
+* [ActivityPub Domain Block List][activitypub-domain-block-list]
+
+# Future Ideas
+
+* Sending Fake Data
+* Abandon Session After SSL Negotiation
+* [Fault Injection][fault-filter]
+
 [github-repo]: https://github.com/alexisart/block-meta-from-fedi
 [codeberg-repo]: https://codeberg.org/alexis/block-meta-from-fedi
 [cambridge-analytica]: https://www.reuters.com/legal/facebook-parent-meta-pay-725-mln-settle-lawsuit-relating-cambridge-analytica-2022-12-23/
@@ -252,3 +262,7 @@ I intentionally set everything in this repo as Public Domain (or [CC0 1.0 Univer
 [zuck]: https://www.threads.net/@zuck
 [meta-and-mastodon-article]: https://ianbetteridge.com/2023/06/21/meta-and-mastodon-whats-really-on-peoples-minds/
 [killing-decentralized-network]: https://ploum.net/2023-06-23-how-to-kill-decentralised-networks.html
+[facebook-abortion-police]: https://www.theverge.com/2022/8/10/23299502/facebook-chat-messenger-history-nebraska-teen-abortion-case
+[activitypub-domain-block-list]: https://github.com/greyhat-academy/lists.d/blob/main/activitypub.domains.block.list.tsv
+[florida-bathroom-ban]: https://www.erininthemorning.com/p/floridas-trans-bathroom-ban-signed
+[fault-filter]: https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/fault_filter
