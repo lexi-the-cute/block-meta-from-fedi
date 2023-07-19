@@ -2,7 +2,9 @@
 
 from typing import Generator
 
-def generate_iptable_rules(addresses: list[dict]) -> Generator[str, dict, None]:
+import argparse
+
+def generate_iptable_rules(addresses: list[dict], args: argparse.Namespace) -> Generator[str, dict, None]:
     # Commands
     sudo: str = "sudo"
     iptables: str = "iptables"
@@ -10,7 +12,7 @@ def generate_iptable_rules(addresses: list[dict]) -> Generator[str, dict, None]:
 
     # Variables
     chain_name: str = "PROTECT_FEDI"
-    policy: str = "DROP"  # REJECT tells the server you're dropping them, DROP is more evil in that you drop the connection silently
+    policy: str = args.policy  # REJECT tells the server you're dropping them, DROP is more evil in that you drop the connection silently
 
     # IP Tables Setup
     create_chain: str = f"{sudo} {iptables} -N {chain_name}"
