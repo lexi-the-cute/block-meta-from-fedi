@@ -4,9 +4,10 @@ import argparse
 
 def format_addresses(addresses: list[dict], args: argparse.Namespace) -> Generator[str, dict, None]:
     # Variables
-    var_name: str = "meta_ip_address"
+    input_var_name: str = args.nginx_geo_input_var
+    output_var_name: str = "meta_ip_address"
 
-    header: str = f"geo ${var_name} \u007b"
+    header: str = f"geo ${input_var_name} ${output_var_name} \u007b"
     footer: str = "\n    default 0;\n}"
     
     yield header

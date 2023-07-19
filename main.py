@@ -72,6 +72,13 @@ if __name__ == "__main__":
                            type=str,
                            help="sudo path (default: %(default)s)")
 
+    argParser.add_argument("--nginx-geo-input-var",
+                           default="http_x_forwarded_for",
+                           const="http_x_forwarded_for",
+                           nargs="?",
+                           type=str,
+                           help="The variable Nginx will read to determine one's real ip address (default: %(default)s)")
+
     args = argParser.parse_args()
 
     addresses: list[dict] = []
