@@ -1,4 +1,4 @@
-from functions import plaintext_formatter, whois_lookup, iptables_generator, json_formatter
+from functions import plaintext_formatter, whois_lookup, iptables_generator, json_formatter, nginx_geo_formatter
 
 import argparse
 
@@ -18,7 +18,7 @@ if __name__ == "__main__":
                            const="iptables",
                            nargs="?",
                            type=str,
-                           choices=("iptables", "plain", "jsonl"),
+                           choices=("iptables", "plain", "jsonl", "nginx-geo"),
                            help="Output format of IP address list (default: %(default)s)")
 
     argParser.add_argument("-p", "--policy",
@@ -92,6 +92,10 @@ if __name__ == "__main__":
     elif args.format == "jsonl":
         # JSON Formatted Addresses
         for address in json_formatter.format_addresses(addresses=addresses, args=args):
+            print(address)
+    elif args.format == "nginx-geo":
+        # Nginx Config Formatted Addresses
+        for address in nginx_geo_formatter.format_addresses(addresses=addresses, args=args):
             print(address)
     else:
         print(f"Unknown format: `{args.format}`")

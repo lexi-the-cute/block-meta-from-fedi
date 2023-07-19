@@ -201,7 +201,36 @@ instagram-p3-shv-01-atl3.fbcdn.net.
 31.13.65.0/24
 ```
 
-# What Else Can We Do
+# How to Set This Project Up?
+
+When setting up this project, you have to take your environment into consideration. This includes checking if you proxy your server with a proxy such as Cloudflare as well as determining what system you are running on your server as well as what commands and config files you have access to.
+
+If servers connect to you your server directly and not through a proxy, and you are running on your own Linux server, you can likely use the iptables approach. The iptables approach downloads and formats the ip addresses for blocking with iptables. It even features different methods of blocking such as silently dropping the connection, giving a rejection message, and even redirecting the connection to a different server (both on and off the same computer).
+
+```bash
+# Dropping IP Addresses
+python3 main.py -f iptables -p DROP | bash
+
+# Routing IP Addresses To Port 8081
+python3 main.py -f iptables -p DNAT -d :8081 | bash
+```
+
+If you have your own solution and can read formats such as plain text or jsonl, then you can output the ip addresses in those formats and then read them with your own software.
+
+```bash
+# Outputting IP Addresses as Plain Text
+python3 main.py -f plain
+
+# Outputting IP Addresses as JSONL
+python3 main.py -f jsonl
+
+# Help Command
+python3 main.py --help
+```
+
+When outputting 
+
+# What Else Can We Do?
 
 * If you are an admin on a server, you can issue a block against threads.net. You can use any of the reasons mentioned in this ReadMe, such as enabling harassment and transphobia.
 
@@ -239,6 +268,7 @@ I intentionally set everything in this repo as Public Domain (or [CC0 1.0 Univer
 * Sending Fake Data
 * Abandon Session After SSL Negotiation
 * [Fault Injection][fault-filter]
+* Explicit Netfilter Support
 
 [github-repo]: https://github.com/lexi-the-cute/block-meta-from-fedi
 [codeberg-repo]: https://codeberg.org/alexis/block-meta-from-fedi
@@ -266,3 +296,4 @@ I intentionally set everything in this repo as Public Domain (or [CC0 1.0 Univer
 [activitypub-domain-block-list]: https://github.com/greyhat-academy/lists.d/blob/main/activitypub.domains.block.list.tsv
 [florida-bathroom-ban]: https://www.erininthemorning.com/p/floridas-trans-bathroom-ban-signed
 [fault-filter]: https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/fault_filter
+[nginx-drop-connection]: https://stackoverflow.com/a/21072774/21794394
