@@ -29,20 +29,30 @@ def lookup_records(query: str, host: str, flags: int = 0, many_results: bool = T
 def lookup_ips(query: str, host: str, flags: int = 0, many_results: bool = True, quiet: bool = True) -> Generator[dict, None, None]:
     response = lookup_records(query=query, host=host, flags=flags, many_results=many_results, quiet=quiet)
 
+    # Deduplicating Routes
+    routes: list = []
     for line in response.splitlines():
         if line.startswith("route:"):
-            route: str = ":".join(line.split(":")[1:]).strip()
+            route: str = sanitize_routes(":".join(line.split(":")[1:]).strip())
 
+            if route in routes:
+                continue
+
+            routes.append(route)
             yield {
                 "ip_version": 4,
-                "route": sanitize_routes(route)
+                "route": route
             }
         elif line.startswith("route6:"):
-            route: str = ":".join(line.split(":")[1:]).strip()
+            route: str = sanitize_routes(":".join(line.split(":")[1:]).strip())
 
+            if route in routes:
+                continue
+
+            routes.append(route)
             yield {
                 "ip_version": 6,
-                "route": sanitize_routes(route)
+                "route": route
             }
 
 def get_ips():
