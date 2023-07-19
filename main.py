@@ -17,8 +17,23 @@ if __name__ == "__main__":
                            const="DROP",
                            nargs="?",
                            type=str,
-                           choices=("DROP", "REJECT", "ACCEPT"),
+                           choices=("DROP", "REJECT", "ACCEPT", "DNAT"),
                            help="iptables policy for handling incoming packets (default: %(default)s)")
+
+    argParser.add_argument("-P", "--protocol",
+                           default="tcp",
+                           const="tcp",
+                           nargs="?",
+                           type=str,
+                           choices=("tcp", "udp", "sctp", "dccp"),
+                           help="iptables protocol type (only valid when policy is DNAT) (default: %(default)s)")
+
+    argParser.add_argument("-d", "--destination",
+                           default=":8080",
+                           const=":8080",
+                           nargs="?",
+                           type=str,
+                           help="iptables destination route (only valid when policy is DNAT) (default: %(default)s)")
 
     argParser.add_argument("--iptables-path",
                            default="iptables",

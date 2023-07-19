@@ -8,12 +8,14 @@ import argparse
 
 # Determine How To Handle Traffic
 def generate_iptable_rules(addresses: list[dict], args: argparse.Namespace) -> Generator[str, dict, None]:
+    if args.policy == "DNAT":
+        return redirect_traffic(addresses=addresses, args=args)
+
     return filter_traffic(addresses=addresses, args=args)
 
 # For Redirecting Traffic
 def redirect_traffic(addresses: list[dict], args: argparse.Namespace) -> Generator[str, dict, None]:
     # sudo iptables -t nat -A PREROUTING -p tcp -s 10.0.0.224 -j DNAT --to-destination :8080
-    # sudo iptables -t nat -A POSTROUTING -j SNAT --to 10.0.0.224
 
     # Commands
     sudo: str = args.sudo_path
@@ -21,32 +23,51 @@ def redirect_traffic(addresses: list[dict], args: argparse.Namespace) -> Generat
     ip6tables: str = args.ip6tables_path
 
     # Variables
-    preroute_chain_name: str = "PROTECT_FEDI_PREROUTING"
-    postroute_chain_name: str = "PROTECT_FEDI_POSTROUTING"
+    chain_name: str = "PROTECT_FEDI"
+    policy: str = args.policy
+    destination: str = args.destination
+    protocol: str = args.protocol
 
-    # IP Tables Setup Prerouting
-    create_chain_preroute: str = f"{sudo} {iptables} -t nat -N {preroute_chain_name}"
-    delete_chain_preroute: str = f"{sudo} {iptables} -t nat -X {preroute_chain_name}"
-    empty_chain_preroute: str = f"{sudo} {iptables} -t nat -F {preroute_chain_name}"
-    add_chain_to_prerouting_packets: str = f"{sudo} {iptables} -t nat -I PREROUTING 1 -j {preroute_chain_name}"
+    # IP Tables Setup
+    create_chain: str = f"{sudo} {iptables} -t nat -N {chain_name}"
+    delete_chain: str = f"{sudo} {iptables} -t nat -X {chain_name}"
+    empty_chain: str = f"{sudo} {iptables} -t nat -F {chain_name}"
+    add_chain_to_prerouting_packets: str = f"{sudo} {iptables} -t nat -I PREROUTING 1 -j {chain_name}"
+    remove_chain_from_prerouting_packets: str = f"{sudo} {iptables} -t nat -D PREROUTING -j {chain_name}"
 
-    # IPV6 Tables Setup Prerouting
-    create_chain_preroute_v6: str = f"{sudo} {ip6tables} -t nat -N {preroute_chain_name}"
-    delete_chain_preroute_v6: str = f"{sudo} {ip6tables} -t nat -X {preroute_chain_name}"
-    empty_chain_preroute_v6: str = f"{sudo} {ip6tables} -t nat -F {preroute_chain_name}"
-    add_chain_to_prerouting_packets_v6: str = f"{sudo} {ip6tables} -t nat -I PREROUTING 1 -j {preroute_chain_name}"
+    # IPV6 Tables Setup
+    create_chain_v6: str = f"{sudo} {ip6tables} -t nat -N {chain_name}"
+    delete_chain_v6: str = f"{sudo} {ip6tables} -t nat -X {chain_name}"
+    empty_chain_v6: str = f"{sudo} {ip6tables} -t nat -F {chain_name}"
+    add_chain_to_prerouting_packets_v6: str = f"{sudo} {ip6tables} -t nat -I PREROUTING 1 -j {chain_name}"
+    remove_chain_from_prerouting_packets_v6: str = f"{sudo} {ip6tables} -t nat -D PREROUTING -j {chain_name}"
 
-    # IP Tables Setup Postrouting
-    create_chain_postroute: str = f"{sudo} {iptables} -t nat -N {postroute_chain_name}"
-    delete_chain_postroute: str = f"{sudo} {iptables} -t nat -X {postroute_chain_name}"
-    empty_chain_postroute: str = f"{sudo} {iptables} -t nat -F {postroute_chain_name}"
-    add_chain_to_postrouting_packets: str = f"{sudo} {iptables} -t nat -I POSTROUTING 1 -j {postroute_chain_name}"
+    # Route Strings
+    handle_route: str = "{sudo} {iptables} -t nat -A {chain_name} -p {protocol} -s {address} -j {policy} --to-destination {destination}"
+    handle_route_v6: str = "{sudo} {ip6tables} -t nat -A {chain_name} -p {protocol} -s {address} -j {policy} --to-destination {destination}"
 
-    # IPV6 Tables Setup Postrouting
-    create_chain_postroute_v6: str = f"{sudo} {ip6tables} -t nat -N {postroute_chain_name}"
-    delete_chain_postroute_v6: str = f"{sudo} {ip6tables} -t nat -X {postroute_chain_name}"
-    empty_chain_postroute_v6: str = f"{sudo} {ip6tables} -t nat -F {postroute_chain_name}"
-    add_chain_to_postrouting_packets_v6: str = f"{sudo} {ip6tables} -t nat -I POSTROUTING 1 -j {postroute_chain_name}"
+    # Setup Stage
+    yield empty_chain
+    yield remove_chain_from_prerouting_packets
+    yield delete_chain
+    yield create_chain
+    yield add_chain_to_prerouting_packets
+
+    # Setup IPV6 Stage
+    yield empty_chain_v6
+    yield remove_chain_from_prerouting_packets_v6
+    yield delete_chain_v6
+    yield create_chain_v6
+    yield add_chain_to_prerouting_packets_v6
+
+    # I was going to pipe data directly from one generator to the other, but that made the code far more complex than is needed
+    # If the addresses list get's large enough to warrant piping, it may be time to look into another method of handling blocking Meta
+    for address in addresses:
+        if type(address) is dict and "route" in address:
+            if "ip_version" in address and address["ip_version"] == 6:
+                yield handle_route_v6.format(sudo=sudo, ip6tables=ip6tables, chain_name=chain_name, address=address["route"], policy=policy, protocol=protocol, destination=destination)
+            else:
+                yield handle_route.format(sudo=sudo, iptables=iptables, chain_name=chain_name, address=address["route"], policy=policy, protocol=protocol, destination=destination)
 
 # For Filtering Traffic
 def filter_traffic(addresses: list[dict], args: argparse.Namespace) -> Generator[str, dict, None]:
@@ -64,22 +85,30 @@ def filter_traffic(addresses: list[dict], args: argparse.Namespace) -> Generator
     delete_chain: str = f"{sudo} {iptables} -t filter -X {chain_name}"
     empty_chain: str = f"{sudo} {iptables} -t filter -F {chain_name}"
     add_chain_to_incoming_packets: str = f"{sudo} {iptables} -t filter -I INPUT 1 -j {chain_name}"
+    remove_chain_from_incoming_packets: str = f"{sudo} {iptables} -t filter -D INPUT -j {chain_name}"
 
     # IPV6 Tables Setup
     create_chain_v6: str = f"{sudo} {ip6tables} -t filter -N {chain_name}"
     delete_chain_v6: str = f"{sudo} {ip6tables} -t filter -X {chain_name}"
     empty_chain_v6: str = f"{sudo} {ip6tables} -t filter -F {chain_name}"
     add_chain_to_incoming_packets_v6: str = f"{sudo} {ip6tables} -t filter -I INPUT 1 -j {chain_name}"
+    remove_chain_from_incoming_packets_v6: str = f"{sudo} {ip6tables} -t filter -D INPUT -j {chain_name}"
 
     # Route Strings
     handle_route: str = "{sudo} {iptables} -t filter -A {chain_name} -s {address} -j {policy}"
     handle_route_v6: str = "{sudo} {ip6tables} -t filter -A {chain_name} -s {address} -j {policy}"
 
     # Setup Stage
+    yield empty_chain
+    yield remove_chain_from_incoming_packets
+    yield delete_chain
     yield create_chain
     yield add_chain_to_incoming_packets
 
     # Setup IPV6 Stage
+    yield empty_chain_v6
+    yield remove_chain_from_incoming_packets_v6
+    yield delete_chain_v6
     yield create_chain_v6
     yield add_chain_to_incoming_packets_v6
 
