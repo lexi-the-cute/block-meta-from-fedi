@@ -19,6 +19,34 @@ def redirect_traffic(addresses: list[dict], args: argparse.Namespace) -> Generat
     iptables: str = args.iptables_path
     ip6tables: str = args.ip6tables_path
 
+    # Variables
+    preroute_chain_name: str = "PROTECT_FEDI_PREROUTING"
+    postroute_chain_name: str = "PROTECT_FEDI_POSTROUTING"
+
+    # IP Tables Setup Prerouting
+    create_chain_preroute: str = f"{sudo} {iptables} -t nat -N {preroute_chain_name}"
+    delete_chain_preroute: str = f"{sudo} {iptables} -t nat -X {preroute_chain_name}"
+    empty_chain_preroute: str = f"{sudo} {iptables} -t nat -F {preroute_chain_name}"
+    add_chain_to_prerouting_packets: str = f"{sudo} {iptables} -t nat -I PREROUTING 1 -j {preroute_chain_name}"
+
+    # IPV6 Tables Setup Prerouting
+    create_chain_preroute_v6: str = f"{sudo} {ip6tables} -t nat -N {preroute_chain_name}"
+    delete_chain_preroute_v6: str = f"{sudo} {ip6tables} -t nat -X {preroute_chain_name}"
+    empty_chain_preroute_v6: str = f"{sudo} {ip6tables} -t nat -F {preroute_chain_name}"
+    add_chain_to_prerouting_packets_v6: str = f"{sudo} {ip6tables} -t nat -I PREROUTING 1 -j {preroute_chain_name}"
+
+    # IP Tables Setup Postrouting
+    create_chain_postroute: str = f"{sudo} {iptables} -t nat -N {postroute_chain_name}"
+    delete_chain_postroute: str = f"{sudo} {iptables} -t nat -X {postroute_chain_name}"
+    empty_chain_postroute: str = f"{sudo} {iptables} -t nat -F {postroute_chain_name}"
+    add_chain_to_postrouting_packets: str = f"{sudo} {iptables} -t nat -I POSTROUTING 1 -j {postroute_chain_name}"
+
+    # IPV6 Tables Setup Postrouting
+    create_chain_postroute_v6: str = f"{sudo} {ip6tables} -t nat -N {postroute_chain_name}"
+    delete_chain_postroute_v6: str = f"{sudo} {ip6tables} -t nat -X {postroute_chain_name}"
+    empty_chain_postroute_v6: str = f"{sudo} {ip6tables} -t nat -F {postroute_chain_name}"
+    add_chain_to_postrouting_packets_v6: str = f"{sudo} {ip6tables} -t nat -I POSTROUTING 1 -j {postroute_chain_name}"
+
 # For Filtering Traffic
 def filter_traffic(addresses: list[dict], args: argparse.Namespace) -> Generator[str, dict, None]:
     # Commands
