@@ -7,11 +7,11 @@ def format_addresses(addresses: list[dict], args: argparse.Namespace) -> Generat
     var_name: str = "meta_ip_address"
 
     header: str = f"geo ${var_name} \u007b"
-    footer: str = "\n    default 1;\n}"
+    footer: str = "\n    default 0;\n}"
     
     yield header
     for address in addresses:
         if "route" in address:
-            yield f"    {address['route']};"
+            yield f"    {address['route']} 1;"
 
     yield footer
