@@ -12,7 +12,8 @@ def generate_iptable_rules(addresses: list[dict], args: argparse.Namespace) -> G
 
 # For Redirecting Traffic
 def redirect_traffic(addresses: list[dict], args: argparse.Namespace) -> Generator[str, dict, None]:
-    # sudo iptables -t nat -A PREROUTING -s 10.1.1.7 -j DNAT --to-destination 127.0.0.1:8080
+    # sudo iptables -t nat -A PREROUTING -p tcp -s 10.0.0.224 -j DNAT --to-destination :8080
+    # sudo iptables -t nat -A POSTROUTING -j SNAT --to 10.0.0.224
 
     # Commands
     sudo: str = args.sudo_path
