@@ -240,7 +240,7 @@ I intentionally set everything in this repo as Public Domain (or [CC0 1.0 Univer
 * Abandon Session After SSL Negotiation
 * [Fault Injection][fault-filter]
 
-[github-repo]: https://github.com/alexisart/block-meta-from-fedi
+[github-repo]: https://github.com/lexi-the-cute/block-meta-from-fedi
 [codeberg-repo]: https://codeberg.org/alexis/block-meta-from-fedi
 [cambridge-analytica]: https://www.reuters.com/legal/facebook-parent-meta-pay-725-mln-settle-lawsuit-relating-cambridge-analytica-2022-12-23/
 [rohingya-genocide]: https://www.amnesty.org/en/latest/news/2022/09/myanmar-facebooks-systems-promoted-violence-against-rohingya-meta-owes-reparations-new-report/

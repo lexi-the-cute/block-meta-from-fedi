@@ -18,7 +18,28 @@ if __name__ == "__main__":
                            nargs="?",
                            type=str,
                            choices=("DROP", "REJECT", "ACCEPT"),
-                           help="IP tables policy for handling incoming packets (default: %(default)s)")
+                           help="iptables policy for handling incoming packets (default: %(default)s)")
+
+    argParser.add_argument("--iptables-path",
+                           default="iptables",
+                           const="iptables",
+                           nargs="?",
+                           type=str,
+                           help="iptables path (default: %(default)s)")
+    
+    argParser.add_argument("--ip6tables-path",
+                           default="ip6tables",
+                           const="ip6tables",
+                           nargs="?",
+                           type=str,
+                           help="ip6tables path (default: %(default)s)")
+    
+    argParser.add_argument("--sudo-path",
+                           default="sudo",
+                           const="sudo",
+                           nargs="?",
+                           type=str,
+                           help="sudo path (default: %(default)s)")
 
     args = argParser.parse_args()
 
