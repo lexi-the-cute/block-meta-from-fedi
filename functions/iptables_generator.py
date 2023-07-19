@@ -24,9 +24,13 @@ def redirect_traffic(addresses: list[dict], args: argparse.Namespace) -> Generat
 
     # Variables
     chain_name: str = "PROTECT_FEDI"
+    firewall_chain_name: str = "PROTECT_FEDI_FIREWALL"
     policy: str = args.policy
     destination: str = args.destination
+    destination_port: str = destination.split(":")[1] if ":" in destination else None
+    is_destination_self: bool = True if destination.startswith(":") else False
     protocol: str = args.protocol
+    handle_firewall: bool = args.handle_firewall
 
     # IP Tables Setup
     create_chain: str = f"{sudo} {iptables} -t nat -N {chain_name}"
@@ -35,6 +39,15 @@ def redirect_traffic(addresses: list[dict], args: argparse.Namespace) -> Generat
     add_chain_to_prerouting_packets: str = f"{sudo} {iptables} -t nat -I PREROUTING 1 -j {chain_name}"
     remove_chain_from_prerouting_packets: str = f"{sudo} {iptables} -t nat -D PREROUTING -j {chain_name}"
 
+    # IP Tables Firewall Setup
+    create_chain_firewall: str = f"{sudo} {iptables} -t filter -N {firewall_chain_name}"
+    delete_chain_firewall: str = f"{sudo} {iptables} -t filter -X {firewall_chain_name}"
+    empty_chain_firewall: str = f"{sudo} {iptables} -t filter -F {firewall_chain_name}"
+    add_firewall_chain_to_incoming_packets: str = f"{sudo} {iptables} -t filter -I INPUT 1 -j {firewall_chain_name}"
+    remove_firewall_chain_from_incoming_packets: str = f"{sudo} {iptables} -t filter -D INPUT -j {firewall_chain_name}"
+    open_port_firewall: str = f"{sudo} {iptables} -t filter -A {firewall_chain_name} -p {protocol} -m {protocol} --dport {destination_port} -j ACCEPT"
+    close_port_firewall: str = f"{sudo} {iptables} -t filter -D {firewall_chain_name} -p {protocol} -m {protocol} --dport {destination_port} -j ACCEPT"
+
     # IPV6 Tables Setup
     create_chain_v6: str = f"{sudo} {ip6tables} -t nat -N {chain_name}"
     delete_chain_v6: str = f"{sudo} {ip6tables} -t nat -X {chain_name}"
@@ -42,9 +55,38 @@ def redirect_traffic(addresses: list[dict], args: argparse.Namespace) -> Generat
     add_chain_to_prerouting_packets_v6: str = f"{sudo} {ip6tables} -t nat -I PREROUTING 1 -j {chain_name}"
     remove_chain_from_prerouting_packets_v6: str = f"{sudo} {ip6tables} -t nat -D PREROUTING -j {chain_name}"
 
+    # IPV6 Tables Firewall Setup
+    create_chain_firewall_v6: str = f"{sudo} {ip6tables} -t filter -N {firewall_chain_name}"
+    delete_chain_firewall_v6: str = f"{sudo} {ip6tables} -t filter -X {firewall_chain_name}"
+    empty_chain_firewall_v6: str = f"{sudo} {ip6tables} -t filter -F {firewall_chain_name}"
+    add_firewall_chain_to_incoming_packets_v6: str = f"{sudo} {ip6tables} -t filter -I INPUT 1 -j {firewall_chain_name}"
+    remove_firewall_chain_from_incoming_packets_v6: str = f"{sudo} {ip6tables} -t filter -D INPUT -j {firewall_chain_name}"
+    open_port_firewall_v6: str = f"{sudo} {ip6tables} -t filter -A {firewall_chain_name} -p {protocol} -m {protocol} --dport {destination_port} -j ACCEPT"
+    close_port_firewall_v6: str = f"{sudo} {ip6tables} -t filter -D {firewall_chain_name} -p {protocol} -m {protocol} --dport {destination_port} -j ACCEPT"
+
     # Route Strings
-    handle_route: str = "{sudo} {iptables} -t nat -A {chain_name} -p {protocol} -s {address} -j {policy} --to-destination {destination}"
-    handle_route_v6: str = "{sudo} {ip6tables} -t nat -A {chain_name} -p {protocol} -s {address} -j {policy} --to-destination {destination}"
+    handle_route: str = "{sudo} {iptables} -t nat -A {chain_name} -p {protocol} -m {protocol} -s {address} -j {policy} --to-destination {destination}"
+    handle_route_v6: str = "{sudo} {ip6tables} -t nat -A {chain_name} -p {protocol} -m {protocol} -s {address} -j {policy} --to-destination {destination}"
+
+    # Only run this when handling firewall
+    if handle_firewall and is_destination_self and destination_port is not None:
+        # Open Firewall Stage
+        yield close_port_firewall
+        yield empty_chain_firewall
+        yield remove_firewall_chain_from_incoming_packets
+        yield delete_chain_firewall
+        yield create_chain_firewall
+        yield add_firewall_chain_to_incoming_packets
+        yield open_port_firewall
+
+        # Open IPV6 Firewall Stage
+        yield close_port_firewall_v6
+        yield empty_chain_firewall_v6
+        yield remove_firewall_chain_from_incoming_packets_v6
+        yield delete_chain_firewall_v6
+        yield create_chain_firewall_v6
+        yield add_firewall_chain_to_incoming_packets_v6
+        yield open_port_firewall_v6
 
     # Setup Stage
     yield empty_chain

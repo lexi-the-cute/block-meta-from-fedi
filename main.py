@@ -2,6 +2,15 @@ from functions import plaintext_formatter, whois_lookup, iptables_generator, jso
 
 import argparse
 
+# Built in boolean parsing does not work as expected, so use this custom parser instead
+def parse_boolean_from_string(string: str):
+    if string.lower() in ('yes', 'true', 't', 'y', '1'):
+        return True
+    elif string.lower() in ('no', 'false', 'f', 'n', '0'):
+        return False
+    else:
+        raise argparse.ArgumentTypeError('Boolean value expected.')
+
 if __name__ == "__main__":
     argParser: argparse.ArgumentParser = argparse.ArgumentParser()
     argParser.add_argument("-f", "--format",
@@ -34,6 +43,13 @@ if __name__ == "__main__":
                            nargs="?",
                            type=str,
                            help="iptables destination route (only valid when policy is DNAT) (default: %(default)s)")
+
+    argParser.add_argument("--handle-firewall",
+                           default=True,
+                           const=True,
+                           nargs="?",
+                           type=parse_boolean_from_string,
+                           help="iptables handle opening/closing port for you (only valid when policy is DNAT and destination is self) (default: %(default)s)")
 
     argParser.add_argument("--iptables-path",
                            default="iptables",
