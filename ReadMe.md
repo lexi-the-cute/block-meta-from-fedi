@@ -228,7 +228,17 @@ python3 main.py -f jsonl
 python3 main.py --help
 ```
 
-When outputting 
+When outputting for Nginx with the geo list, make sure to have a check for the address within the `location /` block. An example output path for the config can be at `/etc/nginx/conf.d/meta-ip.conf`.
+
+```conf
+    location / {
+        if ($meta_ip_address) {
+            return 444;
+        }
+        
+        # ...
+    }
+```
 
 # What Else Can We Do?
 
