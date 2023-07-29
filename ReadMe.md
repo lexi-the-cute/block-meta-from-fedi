@@ -265,7 +265,7 @@ DISALLOW_UNAUTHENTICATED_API_ACCESS=true
 
 * If you're a software developer, you can contribute pull requests to help improve our protection against Meta.
 
-* Also, anyone can share this repo with others on the Fediverse, so please share this and convince your admins to take action to protect their users. You can either share the [Github][github-repo] link or the [Codeberg][codeberg-repo] link.
+* Also, anyone can share this repo with others on the Fediverse, so please share this and convince your admins to take action to protect their users. You can share [my Forgejo instance][forgejo-repo], [Codeberg][codeberg-repo], or [Github][github-repo].
 
 I intentionally set everything in this repo as Public Domain (or [CC0 1.0 Universal](License.md) where Public Domain does not exist). This way anyone can work on improving this anti-Meta measure without restriction.
 
