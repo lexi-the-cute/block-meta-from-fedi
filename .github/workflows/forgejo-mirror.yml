@@ -28,3 +28,9 @@ jobs:
         with:
           target_repo_url: "git@codeberg.org:alexis/block-meta-from-fedi.git"
           ssh_private_key: ${{ secrets.CODEBERG_SSH }}
+      
+      # Mirror To Forgejo
+      - uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url: "git@git.catgirl.land:catgirl-land/block-meta-from-fedi.git"
+          ssh_private_key: ${{ secrets.FORGEJO_SSH }}
