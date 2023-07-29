@@ -16,7 +16,7 @@ If you're interested in [Google and XMPP, see this article][killing-decentralize
 
 This repo is a means to forcibly remove Meta from the Fediverse, by any means necessary. I've started this to collect a list of ip addresses which are owned by Meta and then to block Meta in ways that'll make life much more difficult for them. This includes silently dropping packets without notifying Meta, so their computers have to time out for each server which uses this method, as well as sending fake ActivityPub data to Meta and also throttling the connection, so as to slow their computers down and to make it harder for them to differentiate between which data is real, and which data is fake. It'll make their data much less valuable to anyone wanting to buy it.
 
-This repo is both hosted on [Github][github-repo] and [Codeberg][codeberg-repo].
+This repo is hosted on [my Forgejo instance][forgejo-repo], [Codeberg][codeberg-repo], [Github][github-repo].
 
 # Will They Actually Harm Me?
 
@@ -280,6 +280,7 @@ I intentionally set everything in this repo as Public Domain (or [CC0 1.0 Univer
 * [Fault Injection][fault-filter]
 * Explicit Netfilter Support
 
+[forgejo-repo]: https://git.catgirl.land/catgirl-land/block-meta-from-fedi
 [github-repo]: https://github.com/lexi-the-cute/block-meta-from-fedi
 [codeberg-repo]: https://codeberg.org/alexis/block-meta-from-fedi
 [cambridge-analytica]: https://www.reuters.com/legal/facebook-parent-meta-pay-725-mln-settle-lawsuit-relating-cambridge-analytica-2022-12-23/
